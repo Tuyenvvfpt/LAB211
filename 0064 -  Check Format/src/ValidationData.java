@@ -51,17 +51,14 @@ public class ValidationData {
         String errorMessage;
         while (true) {
             if (phone.isEmpty()) {
-                errorMessage = "Phone cannot be empty !!";
-            } else if (phone.matches("[a-zA-Z]+") == true) {
+                errorMessage = "Phone cannot be empty!";
+            } else if (phone.matches("[a-zA-Z]+")) {
                 errorMessage = "Phone number must is number";
-//            } else if (phone.matches("[a-zA-Z0-9]{10}") == true) {
-//                errorMessage = "Phone number must be 10 digits";
-            } else if (phone.matches("[0-9]{10}") == false) {
+            } else if (!phone.matches("[0-9]{10}")) {
                 errorMessage = "Phone number must be 10 digits";
             } else {
                 errorMessage = "";
             }
-
             return errorMessage;
         }
     }
@@ -93,7 +90,7 @@ public class ValidationData {
         while (true) {
             if (email.isEmpty()) {
                 errorMessage = "Email cannot be empty !!";
-            } else if (email.matches("[a-zA-Z0-9]+[@][a-zA-Z]+[.][a-zA-Z]+") == false) {
+            } else if (!email.matches("[a-zA-Z0-9]+[@][a-zA-Z]+[.][a-zA-Z]+")) {
                 errorMessage = "Email must is correct format";
             } else {
                 errorMessage = "";
@@ -131,7 +128,7 @@ public class ValidationData {
         while (true) {
             try {
                 Date dateInput = simpleDateFormat.parse(date);
-                if (checkDateExist(date, simpleDateFormat) == false) {
+                if (checkDateExist(date, simpleDateFormat)) {
                     errorMessage = "Date does not exist!!!";
                 } else if (isDateFuture(dateInput)) {
                     errorMessage = "Date cannot be in the future!";
@@ -149,7 +146,7 @@ public class ValidationData {
     private static boolean checkDateExist(String date, SimpleDateFormat simpleDateFormat) {
         simpleDateFormat.setLenient(false);
         try {
-            Date dateInput = simpleDateFormat.parse(date);
+            Date dateExist = simpleDateFormat.parse(date);
             return true;
         } catch (ParseException ex) {
             return false;

@@ -19,13 +19,12 @@ public class Convert {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String[] baseRegex = {"[0-1]+", "[0-7]+", "[0-9]+", "[0-9a-f]+"};
+        String[] baseRegex = {"[0-1]+", "[0-9]+", "[0-9a-f]+"};
 
         System.out.println("Choose the base system:");
         System.out.println("1. Binary");
-        System.out.println("2. Octal");
-        System.out.println("3. Decimal");
-        System.out.println("4. Hexadecimal");
+        System.out.println("2. Decimal");
+        System.out.println("3. Hexadecimal");
 
         int n = checkInput("Enter the base input: ", 1, 4);
         int m = checkInput("Enter the base output: ", 1, 4);

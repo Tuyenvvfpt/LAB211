@@ -92,25 +92,17 @@ public class BirnarySearch {
 
     void sortArray() {
         int n = array.length;
-        // Biến để kiểm tra xem trong lần duyệt i thứ j có hoán đổi phần tử nào không
-        boolean swapped = false;
         // Vòng lặp ngoài cùng để duyệt qua toàn bộ mảng
         for (int j = 0; j < n; j++) {
 
             // Vòng lặp trong cùng để duyệt từ đầu mảng đến phần tử cuối cùng trừ đi số lần đã sắp xếp (j)
             for (int i = 0; i < n - j - 1; i++) {
                 // Nếu phần tử hiện tại lớn hơn phần tử kế tiếp, thì hoán đổi chỗ 2 phần tử này
-                if (array[i] > array[i + 1]) {
+                if (array[i] < array[i + 1]) {
                     int temp = array[i];
                     array[i] = array[i + 1];
                     array[i + 1] = temp;
-                    // Đánh dấu là đã hoán đổi phần tử để tiếp tục duyệt
-                    swapped = true;
                 }
-            }
-            // Nếu trong lần duyệt i thứ j không có phần tử nào cần được đổi chỗ, thì mảng đã được sắp xếp và ta có thể thoát khỏi vòng lặp ngoài cùng sớm
-            if (!swapped) {
-                break;
             }
         }
     }

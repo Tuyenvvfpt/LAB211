@@ -15,7 +15,7 @@ public class Manager {
     }
 
     public static int getBase(int n) {
-        int[] a = {2, 8, 10, 16};
+        int[] a = {2, 10, 16};
         return a[n - 1];
     }
 
