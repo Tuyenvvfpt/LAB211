@@ -15,8 +15,8 @@ public class Manager {
     }
 
     public static int getBase(int n) {
-        int[] a = {2, 10, 16};
-        return a[n - 1];
+        int[] array = {2, 10, 16};
+        return array[n - 1];
     }
 
     public static int otherToDec(int base, String num) {

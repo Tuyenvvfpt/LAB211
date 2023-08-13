@@ -26,19 +26,30 @@ public class Convert {
         System.out.println("2. Decimal");
         System.out.println("3. Hexadecimal");
 
-        int n = checkInput("Enter the base input: ", 1, 4);
-        int m = checkInput("Enter the base output: ", 1, 4);
-        String input = checkBase("Enter input number: ", n, baseRegex);
-        if (n == m) {
-            System.out.println("Output number: " + input);
+        //choose base
+        int inputBase = checkInput("Enter the base input: ", 1, 4);
+        int outputBase = checkInput("Enter the base output: ", 1, 4);
+        //enter number
+        String inputNumber = checkBase("Enter input number: ", inputBase, baseRegex);
+
+        if (inputBase == outputBase) {
+            System.out.println("Output number: " + inputNumber);
             return;
         }
-        String output = Manager.convertBase(n, m, input);
+        String output = Manager.convertBase(inputBase, outputBase, inputNumber);
         System.out.println("Output number: " + output);
     }
 
     final static Scanner SC = new Scanner(System.in);
 
+    /**
+     * check input base and output base
+     *
+     * @param Mess
+     * @param min
+     * @param max
+     * @return
+     */
     public static int checkInput(String Mess, int min, int max) {
 
         while (true) {
@@ -56,6 +67,14 @@ public class Convert {
         }
     }
 
+    /**
+     * check input number
+     *
+     * @param Mess
+     * @param inputBase
+     * @param Regex
+     * @return string input number
+     */
     public static String checkBase(String Mess, int inputBase, String[] Regex) {
         String st;
         do {
