@@ -133,7 +133,7 @@ public class ValidationData {
             } else {
                 try {
                     Date dateInput = simpleDateFormat.parse(date);
-                    if (checkDateExist(date, simpleDateFormat)) {
+                    if (!checkDateExist(date, simpleDateFormat)) {
                         errorMessage = "Date does not exist!";
                     } else if (isDateFuture(dateInput)) {
                         errorMessage = "Date cannot be in the future!";
