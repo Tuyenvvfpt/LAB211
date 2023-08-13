@@ -89,9 +89,9 @@ public class ValidationData {
         String errorMessage;
         while (true) {
             if (email.isEmpty()) {
-                errorMessage = "Email cannot be empty !!";
+                errorMessage = "Email cannot be empty!";
             } else if (!email.matches("[a-zA-Z0-9]+[@][a-zA-Z]+[.][a-zA-Z]+")) {
-                errorMessage = "Email must is correct format";
+                errorMessage = "Email must is correct format!";
             } else {
                 errorMessage = "";
             }
@@ -129,14 +129,12 @@ public class ValidationData {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         while (true) {
             if (date.isEmpty()) {
-                errorMessage = "Date cannot be empty";
+                errorMessage = "Date cannot be empty!";
             } else {
                 try {
                     Date dateInput = simpleDateFormat.parse(date);
-                    if (date.isEmpty()) {
-                        errorMessage = "Date cannot be empty";
-                    } else if (checkDateExist(date, simpleDateFormat)) {
-                        errorMessage = "Date does not exist!!!";
+                    if (checkDateExist(date, simpleDateFormat)) {
+                        errorMessage = "Date does not exist!";
                     } else if (isDateFuture(dateInput)) {
                         errorMessage = "Date cannot be in the future!";
                     } else {
