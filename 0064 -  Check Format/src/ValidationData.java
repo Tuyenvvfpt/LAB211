@@ -111,7 +111,9 @@ public class ValidationData {
             System.out.print("Date: ");
             String date = scanner.nextLine().trim();
 
+            //C1
             String result = checkDateFormat(date);
+//            String result = checkDateFormatExist(date);
 
             if (result.isEmpty()) {
                 break;
@@ -126,19 +128,24 @@ public class ValidationData {
         String errorMessage;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         while (true) {
-            try {
-                Date dateInput = simpleDateFormat.parse(date);
-                if (checkDateExist(date, simpleDateFormat)) {
-                    errorMessage = "Date does not exist!!!";
-                } else if (isDateFuture(dateInput)) {
-                    errorMessage = "Date cannot be in the future!";
-                } else {
-                    errorMessage = "";
+            if (date.isEmpty()) {
+                errorMessage = "Date cannot be empty";
+            } else {
+                try {
+                    Date dateInput = simpleDateFormat.parse(date);
+                    if (date.isEmpty()) {
+                        errorMessage = "Date cannot be empty";
+                    } else if (checkDateExist(date, simpleDateFormat)) {
+                        errorMessage = "Date does not exist!!!";
+                    } else if (isDateFuture(dateInput)) {
+                        errorMessage = "Date cannot be in the future!";
+                    } else {
+                        errorMessage = "";
+                    }
+                } catch (ParseException e) {
+                    errorMessage = "Date to correct format(dd/mm/yyyy)";
                 }
-            } catch (ParseException e) {
-                errorMessage = "Date to correct format(dd/mm/yyyy)";
             }
-
             return errorMessage;
         }
     }
@@ -151,7 +158,6 @@ public class ValidationData {
         } catch (ParseException ex) {
             return false;
         }
-
     }
 
     private static boolean isDateFuture(Date dateInput) {
@@ -159,4 +165,24 @@ public class ValidationData {
         return dateInput.after(currentDate);
     }
 
+//    public static String checkDateFormatExist(String date) {
+//
+//        String errorMessage;
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        simpleDateFormat.setLenient(false);
+//        while (true) {
+//            try {
+//                Date dateInput = simpleDateFormat.parse(date);
+//                if (isDateFuture(dateInput)) {
+//                    errorMessage = "Date cannot be in the future!";
+//                } else {
+//                    errorMessage = "";
+//                }
+//            } catch (ParseException e) {
+//                errorMessage = "Date to correct format(dd/mm/yyyy)";
+//            }
+//
+//            return errorMessage;
+//        }
+//    }
 }
