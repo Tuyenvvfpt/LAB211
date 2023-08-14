@@ -26,9 +26,14 @@ public class Manager {
         int result = 0;
         int pow = 1;
         String index = "0123456789abcdef";
+
+        //lay so tu cuoi tro len
         for (int i = num.length() - 1; i >= 0; i--) {
+            //lay so
             int n = index.indexOf(num.charAt(i));
+            
             result += n * pow;
+            //cap nhat gia tri moi cho so moi, tang gia tri cho co so
             pow *= base;
         }
         return result;
@@ -39,7 +44,9 @@ public class Manager {
         String index = "0123456789abcdef";
         while (num != 0) {
             int n = num % base;
+            //khi tu n trong chuoi index se duoc 
             result = index.charAt(n) + result;
+            //cap nhat gia tri moi cho num sau khi chia
             num /= base;
         }
         return result;
