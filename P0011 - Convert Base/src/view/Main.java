@@ -5,11 +5,10 @@
 package view;
 
 import bo.ConvertBase;
-import util.Utility;
 
 /**
  *
- * @author asus
+ * @author ADMIN
  */
 public class Main {
 
@@ -23,9 +22,10 @@ public class Main {
                 + " binary ; 2: decimal; 3: hexa): ",
                 "Wrong", 1, 3);
 //3.	Required user enter the input value;
-        String inputNumber = Utility.getValue(baseInput);
+        String value = Utility.getValue(baseInput);
 //4.	Program process and print output value;
         ConvertBase convert = new ConvertBase();
-        convert.convertValue(baseInput, baseOutput, inputNumber);
+        convert.convertValue(baseInput, baseOutput, value);
     }
+
 }

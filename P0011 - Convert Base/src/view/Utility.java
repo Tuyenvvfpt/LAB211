@@ -1,7 +1,15 @@
-package util;
+package view;
 
 import java.util.Scanner;
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+/**
+ *
+ * @author ADMIN
+ */
 public class Utility {
 
     public static void main(String[] args) {
@@ -71,6 +79,7 @@ public class Utility {
                 } else {
                     System.out.println("Number must in range " + min + " - " + max);
                 }
+
             } catch (NumberFormatException e) {
                 System.out.println(error);
             }
@@ -92,40 +101,39 @@ public class Utility {
 
     }
 
-    public static String getValue(int baseInput) {
+    static String getValue(int baseInput) {
         String input = null;
 
         switch (baseInput) {
             case 1:
                 //neu baseInput = 1 : nhap vao binary
-                input = getString("Enter binary number (only contain 0, 1): ", "Wrong", "[-01.]+");
+                input = getBinaryNumber();
                 break;
             case 2:
                 //neu base input = 2 : nhap vao decimal
-                input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "[\\d.]+");
+                input = getDecimalNumber();
                 break;
             case 3:
                 //neu base input = 3 : nhap vao hexadecimal
-                input = getString("Enter hexadecimal number (only contain 0-9 A-F): ",
-                        "Wrong", "[0-9A-F.]+");
+                input = getHexaDecimalNumber();
                 break;
         }
         return input;
     }
 
-//    private static String getBinaryNumber() {
-//        String input = getString("Enter binary number (only contain 0, 1): ", "Wrong", "[-01.]+");
-//        return input;
-//    }
-//
-//    private static String getDecimalNumber() {
-//        String input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "[\\d.]+");
-//        return input;
-//    }
-//
-//    private static String getHexaDecimalNumber() {
-//        String input = getString("Enter hexadecimal number (only contain 0-9 A-F): ",
-//                "Wrong", "[0-9A-F.]+");
-//        return input;
-//    }
+    private static String getBinaryNumber() {
+        String input = getString("Enter binary number (only contain 0, 1): ", "Wrong", "[-01.]+");
+        return input;
+    }
+
+    private static String getDecimalNumber() {
+        String input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "[\\d.]+");
+        return input;
+    }
+
+    private static String getHexaDecimalNumber() {
+        String input = getString("Enter hexadecimal number (only contain 0-9 A-F): ",
+                "Wrong", "[0-9A-F.]+");
+        return input;
+    }
 }
