@@ -14,7 +14,7 @@ public class ConvertBase {
         switch (baseInput) {
             case 1:
                 //neu baseInput = 1 : xu li binary
-                result = convertBinaryToOther(baseOutput, value);
+                result = convertBinary(baseOutput, value);
                 break;
             case 2:
                 //neu base input = 2 : xu li decimal
@@ -29,7 +29,7 @@ public class ConvertBase {
         System.out.println("Value is: " + result);
     }
 
-    private String convertBinaryToOther(int baseOutput, String value) {
+    private String convertBinary(int baseOutput, String value) {
         String result = null;
         switch (baseOutput) {
             case 1:
@@ -136,7 +136,7 @@ public class ConvertBase {
         // Khởi tạo một đối tượng BigInteger từ chuỗi số thập phân đầu vào
         BigInteger decimalBigInteger = new BigInteger(decimalNumber);
 
-// Khởi tạo đối tượng BigInteger từ cơ số đầu vào
+// Khởi tạo đối tượnsg BigInteger từ cơ số đầu vào
         BigInteger baseBigInteger = BigInteger.valueOf(base);
 
 // Chuỗi ký tự biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX trong hệ 16)
