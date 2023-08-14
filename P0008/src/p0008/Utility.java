@@ -21,6 +21,8 @@ class Utility {
             result = result.toLowerCase();
             if (result.length() == 0) {
                 System.out.println("Not null");
+                
+                //check for case: 
             } else if (!result.matches(".*[a-zA-Z0-9].*")) {
                 System.out.println("Contains at least 1 character");
             } else {

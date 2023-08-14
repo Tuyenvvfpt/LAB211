@@ -53,26 +53,7 @@ public class ConvertBase {
     }
 
     private String convertOtherToDecimal(int baseInput, String value) {
-//        if (value.compareTo("0") == 0) {
-//            return "0";
-//        }
-//
-//        //convert base ( int ) => biginteger
-//        BigInteger baseBigInteger = BigInteger.valueOf(baseInput);
-//
-//        baseBigInteger = baseBigInteger.divide(baseBigInteger);
-//        String HEX = "0123456789ABCDEF";
-//
-//        BigInteger result = new BigInteger("0");
-//        //loop length of number times
-//        for (int i = value.length() - 1; i >= 0; i--) {
-//            BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(value.charAt(i)));
-//            BigInteger number = valueIndex.multiply(baseBigInteger);
-//            result = result.add(number);
-//            baseBigInteger = baseBigInteger.multiply(BigInteger.valueOf(baseInput));
-//        }
-//        String resultString = result.toString();
-//        return resultString;
+        
         if (value.equals("0")) {
             return "0";
         }

@@ -12,14 +12,25 @@ import java.util.HashMap;
  */
 public class P0008 {
 
+    public static void main(String[] args) {
+        P0008 p = new P0008();
+        String n = Utility.inputString();
+        HashMap<String, Integer> countW = p.countWord(n);
+        p.print(countW);
+        HashMap<Character, Integer> countC = p.countChar(n);
+        p.print(countC);
+    }
+
     public HashMap<String, Integer> countWord(String n) {
         HashMap<String, Integer> count = new HashMap<>();
         //tach chuoi thanh cac tu
         String[] w = n.split("[!@#$%^&*()-_=+,./< >?]");
         //duyet mang cac tu da duoc tach
         for (String p : w) {
-            //neu tu da ton tai trong count => tang gia tri dem them 1
-            if (count.containsKey(p)) {
+            if (p.isEmpty()) {
+                continue;
+            } //neu tu da ton tai trong count => tang gia tri dem them 1
+            else if (count.containsKey(p)) {
                 count.put(p, count.get(p) + 1);
                 //neu chua ton tai, them tu vao count voi gia tri dem la 1
             } else {
@@ -44,11 +55,13 @@ public class P0008 {
             }
         }
         return count;
+
     }
 
     /**
      * nhan vao doi tuong HashMap du la countW hay countC
-     * @param count 
+     *
+     * @param count
      */
     public void print(HashMap<?, ?> count) {
         StringBuilder st = new StringBuilder("{");
@@ -64,15 +77,6 @@ public class P0008 {
         st.append("}");
         System.out.print(st.toString());
         System.out.println("");
-    }
-
-    public static void main(String[] args) {
-        P0008 p = new P0008();
-        String n = Utility.inputString();
-        HashMap<String, Integer> countW = p.countWord(n);
-        p.print(countW);
-        HashMap<Character, Integer> countC = p.countChar(n);
-        p.print(countC);
     }
 
 }
