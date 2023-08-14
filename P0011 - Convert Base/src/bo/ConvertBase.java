@@ -14,71 +14,93 @@ public class ConvertBase {
 
     public void convertValue(int baseInput, int baseOutput, String value) {
         String result = null;
+
         switch (baseInput) {
             case 1:
-                //base = 1: xu ly birnary
-                result = convertBirnaryToOther(baseOutput, value);
+                //neu baseInput = 1 : xu li binary
+                result = convertBinaryToOther(baseOutput, value);
                 break;
             case 2:
-//base = 2: xu ly decimal           
-                result = convertDecimalToOther(baseOutput, value);
+                //neu base input = 2 : xu li decimal
+//                result = convertBinaryToOther(baseOutput, value);
                 break;
             case 3:
-                //base = 3: xu ly hexa
-                result = convertHexaToOther(baseOutput, value);
+                //neu base input = 3 : xu li hexadecimal
+                result = convertBinaryToOther(baseOutput, value);
                 break;
         }
-        System.out.println("Value is " + result);
+
+        System.out.println("Value is: " + result);
     }
 
-    private String convertBirnaryToOther(int baseOutput, String value) {
+    private String convertBinaryToOther(int baseOutput, String value) {
         String result = null;
         switch (baseOutput) {
             case 1:
-                //base = 1: xu ly birnary
+                //neu baseOutput = 1 : binary => binary ( 2=>2)
                 result = value;
                 break;
             case 2:
-//base = 2: xu ly decimal           
+                //neu baseOutput = 2 : binary => decimal ( 2=> 10)
                 result = convertOtherToDecimal(2, value);
                 break;
             case 3:
-                //base = 3: xu ly hexa
-                result = convertHexaToOther(baseOutput, value);
+                //neu baseOutput = 3 : binary => hexadecimal ( 2 =>16)
+
                 break;
         }
         return result;
     }
 
-    private String convertDecimalToOther(int baseOutput, String value) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private String convertHexaToOther(int baseOutput, String value) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     private String convertOtherToDecimal(int baseInput, String value) {
-        if (value.compareTo("0") == 0) {
+//        if (value.compareTo("0") == 0) {
+//            return "0";
+//        }
+//
+//        //convert base ( int ) => biginteger
+//        BigInteger baseBigInteger = BigInteger.valueOf(baseInput);
+//
+//        baseBigInteger = baseBigInteger.divide(baseBigInteger);
+//        String HEX = "0123456789ABCDEF";
+//
+//        BigInteger result = new BigInteger("0");
+//        //loop length of number times
+//        for (int i = value.length() - 1; i >= 0; i--) {
+//            BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(value.charAt(i)));
+//            BigInteger number = valueIndex.multiply(baseBigInteger);
+//            result = result.add(number);
+//            baseBigInteger = baseBigInteger.multiply(BigInteger.valueOf(baseInput));
+//        }
+//        String resultString = result.toString();
+//        return resultString;
+        if (value.equals("0")) {
             return "0";
         }
 
-        //convert base ( int ) => biginteger
-        BigInteger baseBigInteger = BigInteger.valueOf(baseInput);
+        boolean isNegative = false;
+        if (value.startsWith("-")) {
+            isNegative = true;
+            value = value.substring(1); // Remove the negative sign from the value
+        }
 
+        BigInteger baseBigInteger = BigInteger.valueOf(baseInput);
         baseBigInteger = baseBigInteger.divide(baseBigInteger);
         String HEX = "0123456789ABCDEF";
 
         BigInteger result = new BigInteger("0");
-        //loop length of number times
+
         for (int i = value.length() - 1; i >= 0; i--) {
             BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(value.charAt(i)));
             BigInteger number = valueIndex.multiply(baseBigInteger);
             result = result.add(number);
             baseBigInteger = baseBigInteger.multiply(BigInteger.valueOf(baseInput));
         }
-        String resultString = result.toString();
-        return resultString;
+
+        if (isNegative) {
+            result = result.negate(); // Negate the result if the input was negative
+        }
+
+        return result.toString();
     }
 
 }

@@ -4,130 +4,128 @@ import java.util.Scanner;
 
 public class Utility {
 
+    public static void main(String[] args) {
+        String userOption = Utility.getString("Please give me your choice (eg: 1 10): ",
+                "Must be in format (X X) (X is digit and have space between them)",
+                "\\d+[ ]\\d*");
+        System.out.println(userOption);
+
+    }
+
     static Scanner scanner = new Scanner(System.in);
-       public static int getNumber(String messageString, String error, int min, int max) {
+
+    /**
+     * lấy về một số nguyên từ đầu vào
+     *
+     * @param message
+     * @param error
+     * @param min
+     * @param max
+     * @return number input
+     */
+    public static int getInteger(String message, String error, int min, int max) {
         while (true) {
             try {
-                //hien thi ra thong bao, yeu cau nguoi dung
-                System.out.println(messageString);
-                //cho nguoi dung nhap vao
+                //hiển thị thông báo, yêu cầu người dùng
+                System.out.print(message);
+                //cho người dùng nhập vào
                 String input = scanner.nextLine();
                 int number = Integer.parseInt(input);
-                //kiem tra xem gia tri dau vao co trong doan min-max
+                //kiểm tra xem giá trị đầu vào có trong đoạn min - max
                 //if number in range => return number
-                if (min <= number && number <= max) {
+                if (number >= min && number <= max) {
                     return number;
                     //else tell error
                 } else {
-                    System.out.println("number must in range " + min + " and " + max);
+                    System.out.println("Number must in range " + min + " - " + max);
                 }
+
             } catch (NumberFormatException e) {
                 System.out.println(error);
             }
-
-        }
-    }   public static int getSearch(String messageString, String error, int min, int max) {
-        while (true) {
-            try {
-                //hien thi ra thong bao, yeu cau nguoi dung
-                System.out.println(messageString);
-                //cho nguoi dung nhap vao
-                String input = scanner.nextLine();
-                int number = Integer.parseInt(input);
-                //kiem tra xem gia tri dau vao co trong doan min-max
-                //if number in range => return number
-                if (min <= number && number <= max) {
-                    return number;
-                    //else tell error
-                } else {
-                    System.out.println("number must in range " + min + " and " + max);
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(error);
-            }
-
         }
     }
 
     /**
+     * lấy về một số nguyên từ đầu vào
      *
-     * @param messageString
+     * @param message
      * @param error
      * @param min
      * @param max
-     * @return
+     * @return number input
      */
-    public static int getInteger(String messageString, String error, int min, int max) {
+    public static float getFloat(String message, String error, int min, int max) {
         while (true) {
             try {
-                //hien thi ra thong bao, yeu cau nguoi dung
-                System.out.println(messageString);
-                //cho nguoi dung nhap vao
+                //hiển thị thông báo, yêu cầu người dùng
+                System.out.print(message);
+                //cho người dùng nhập vào
                 String input = scanner.nextLine();
-                int number = Integer.parseInt(input);
-                //kiem tra xem gia tri dau vao co trong doan min-max
+                float number = Float.parseFloat(input);
+                //kiểm tra xem giá trị đầu vào có trong đoạn min - max
                 //if number in range => return number
-                if (min <= number && number <= max) {
+                if (number >= min && number <= max) {
                     return number;
                     //else tell error
                 } else {
-                    System.out.println("number must in range " + min + " and " + max);
+                    System.out.println("Number must in range " + min + " - " + max);
                 }
+
             } catch (NumberFormatException e) {
                 System.out.println(error);
             }
-
         }
     }
 
-    public static String getString(String messageString, String errorString, String regex) {
+    public static String getString(String message, String error, String regex) {
         while (true) {
-            System.out.println(messageString);
+            System.out.println(message);
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) {
-                System.out.println("Input can not be empty");
+                System.out.print("Input cannot be empty");
             } else if (input.matches(regex)) {
-                System.out.println("Hop le");
                 return input;
             } else {
-                System.out.println(errorString);
+                System.out.println(error);
             }
-
         }
+
     }
 
     public static String getValue(int baseInput) {
-
         String input = null;
+
         switch (baseInput) {
             case 1:
-//if base input = 1: nhap vao birnany
+                //neu baseInput = 1 : nhap vao binary
                 input = getBinaryNumber();
                 break;
             case 2:
-//if base input = 2: nhap vao decimal
+                //neu base input = 2 : nhap vao decimal
                 input = getDecimalNumber();
                 break;
             case 3:
-//if base input = 3: nhap vao hexa
-                input = getHexaNumber();
+                //neu base input = 3 : nhap vao hexadecimal
+                input = getHexaDecimalNumber();
                 break;
         }
         return input;
     }
 
     private static String getBinaryNumber() {
-        String input = Utility.getString("Enter birnary (only contain 0 & 1): ", "Wrong ", "[01]+");
+        String input = getString("Enter binary number (only contain 0, 1): ", "Wrong", "[-01.]+");
         return input;
     }
 
     private static String getDecimalNumber() {
-        String input = Utility.getString("Enter deici (only contain 0-9): ", "Wrong ", "\\d+");
+        String input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "[\\d.]+");
         return input;
     }
 
-    private static String getHexaNumber() {
-        String input = Utility.getString("Enter birnary (only contain 0-9 A-F): ", "Wrong ", "[0-9A-F]+");
+    private static String getHexaDecimalNumber() {
+        String input = getString("Enter hexadecimal number (only contain 0-9 A-F): ",
+                "Wrong", "[0-9A-F.]+");
         return input;
     }
 }
