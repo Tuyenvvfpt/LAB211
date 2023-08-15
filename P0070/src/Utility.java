@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public class Utility {
 
+    public static String REGEX_USERNAME = "\\d{10}";
+    public static String REGEX_PASSWORD = "(?=.*\\d)(?=.*[a-zA-Z])\\S{8,31}";
+    public static String REGEX_CAPCHA = "[a-zA-Z0-9]+";
+
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
