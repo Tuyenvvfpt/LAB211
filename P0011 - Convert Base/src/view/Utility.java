@@ -127,7 +127,7 @@ public class Utility {
     }
 
     private static String getDecimalNumber() {
-        String input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "[\\d.]+");
+        String input = getString("Enter decimal number (only contain 0 - 9): ", "Wrong", "-?\\d+(\\.\\d+)?");
         return input;
     }
 

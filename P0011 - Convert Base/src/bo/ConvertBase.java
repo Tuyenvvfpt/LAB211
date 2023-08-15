@@ -10,6 +10,13 @@ public class ConvertBase {
 
     public void convertValue(int baseInput, int baseOutput, String value) {
         String result = null;
+        boolean isNegative = false;
+
+        // Xử lý số nguyên âm
+        if (value.startsWith("-")) {
+            isNegative = true;
+            value = value.substring(1); // Loại bỏ ký tự âm từ giá trị
+        }
 
         switch (baseInput) {
             case 1:
@@ -24,6 +31,10 @@ public class ConvertBase {
                 //neu base input = 3 : xu li hexadecimal
                 result = convertHexadecimal(baseOutput, value);
                 break;
+        }
+        // Nếu là số âm, thêm dấu trừ
+        if (isNegative) {
+            result = "-" + result;
         }
 
         System.out.println("Value is: " + result);
@@ -42,7 +53,7 @@ public class ConvertBase {
                 break;
             case 3:
                 //neu baseOutput = 3 : binary => hexadecimal ( 2 =>16)
-                result = convertDecimalToOther(convertOtherToDecimal(2, value), baseOutput);
+                result = convertDecimalToOther(convertOtherToDecimal(2, value), 16);
                 break;
         }
         return result;
@@ -86,8 +97,72 @@ public class ConvertBase {
         return result;
     }
 
-    // Chuyển đổi một số ở hệ cơ số khác thành số thập phân
+    /**
+     *
+     *  // Chuyển đổi một số ở hệ cơ số khác thành số thập phân private String
+     * convertOtherToDecimal(int baseInput, String value) { if
+     * (value.equals("0")) { return "0"; }
+     *
+     * boolean isNegative = false; if (value.startsWith("-")) { isNegative =
+     * true; value = value.substring(1); // Loại bỏ ký tự âm từ giá trị }
+     *
+     * // Khởi tạo số BigInteger từ cơ số đầu vào // BigInteger baseBigInteger
+     * = BigInteger.valueOf(baseInput); // baseBigInteger =
+     * baseBigInteger.divide(baseBigInteger); // Không làm gì cả, chỉ để khởi
+     * tạo BigInteger baseBigInteger = new BigInteger("1");
+     *
+     * String HEX = "0123456789ABCDEF";
+     *
+     * BigInteger result = new BigInteger("0");
+     *
+     * //so thap phan String[] parts = value.split("\\."); //convert the
+     * integer part String integerPart = parts[0]; // Vòng lặp chuyển đổi từng
+     * chữ số ở hệ cơ số khác sang thập phân for (int i = integerPart.length() -
+     * 1; i >= 0; i--) { // Lấy chỉ số của ký tự hiện tại trong chuỗi HEX để xác
+     * định giá trị tương ứng BigInteger valueIndex =
+     * BigInteger.valueOf(HEX.indexOf(value.charAt(i))); // Nhân giá trị của ký
+     * tự với cơ số đầu vào để tính giá trị tương ứng ở thập phân BigInteger
+     * number = valueIndex.multiply(baseBigInteger); // Cộng giá trị tương ứng
+     * vào kết quả tổng result = result.add(number); // Tăng cơ số đầu vào lên
+     * baseInput lần tiếp theo để tính toán cho chữ số tiếp theo baseBigInteger
+     * = baseBigInteger.multiply(BigInteger.valueOf(baseInput)); }
+     *
+     * //convert the fractional part if present if (parts.length > 1) { String
+     * fractionalPart = parts[1]; // Vòng lặp chuyển đổi từng chữ số ở hệ cơ số
+     * khác sang thập phân for (int i = fractionalPart.length() - 1; i >= 0;
+     * i--) { int valueFrac = HEX.indexOf(fractionalPart.charAt(i)); // Lấy giá
+     * trị tương ứng của ký tự trong chuỗi HEX BigInteger digitValue =
+     * BigInteger.valueOf(valueFrac); // Nhân giá trị của ký tự với cơ số đầu ra
+     * để tính giá trị tương ứng ở hệ cơ số 10 BigInteger exponent =
+     * BigInteger.valueOf(fractionalPart.length() - i - 1); BigInteger power =
+     * BigInteger.valueOf(baseInput).pow(exponent.intValue()); BigInteger number
+     * = digitValue.multiply(power); result = result.add(number); } }
+     *
+     * // Vòng lặp chuyển đổi từng chữ số ở hệ cơ số khác sang thập phân for
+     * (int i = value.length() - 1; i >= 0; i--) { // Lấy chỉ số của ký tự hiện
+     * tại trong chuỗi HEX để xác định giá trị tương ứng BigInteger valueIndex =
+     * BigInteger.valueOf(HEX.indexOf(value.charAt(i)));
+     *
+     * // Nhân giá trị của ký tự với cơ số đầu vào để tính giá trị tương ứng ở
+     * thập phân BigInteger number = valueIndex.multiply(baseBigInteger);
+     *
+     * // Cộng giá trị tương ứng vào kết quả tổng result = result.add(number);
+     *
+     * // Tăng cơ số đầu vào lên baseInput lần tiếp theo để tính toán cho chữ
+     * số tiếp theo baseBigInteger =
+     * baseBigInteger.multiply(BigInteger.valueOf(baseInput)); }
+     *
+     * if (isNegative) { result = result.negate(); // Đảo dấu kết quả nếu đầu
+     * vào là số âm }
+     *
+     * return result.toString(); }
+     *
+     * @param baseInput
+     * @param value
+     * @return
+     */
     private String convertOtherToDecimal(int baseInput, String value) {
+        // Kiểm tra nếu giá trị đầu vào là "0"
         if (value.equals("0")) {
             return "0";
         }
@@ -98,36 +173,59 @@ public class ConvertBase {
             value = value.substring(1); // Loại bỏ ký tự âm từ giá trị
         }
 
-        // Khởi tạo số BigInteger từ cơ số đầu vào
+        // Khởi tạo giá trị cơ số đầu vào dưới dạng BigInteger
         BigInteger baseBigInteger = BigInteger.valueOf(baseInput);
-        baseBigInteger = baseBigInteger.divide(baseBigInteger); // Không làm gì cả, chỉ để khởi tạo
+        // Chuỗi biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX trong hệ 16)
         String HEX = "0123456789ABCDEF";
+        // Khởi tạo biến lưu kết quả cuối cùng
+        BigInteger result = BigInteger.ZERO;
 
-        BigInteger result = new BigInteger("0");
-
-        // Vòng lặp chuyển đổi từng chữ số ở hệ cơ số khác sang thập phân
-        for (int i = value.length() - 1; i >= 0; i--) {
+        // Tách phần nguyên và phần thập phân (nếu có) từ giá trị đầu vào
+        String[] parts = value.split("\\.");
+        // Xử lý phần nguyên
+        String integerPart = parts[0];
+        for (int i = integerPart.length() - 1; i >= 0; i--) {
             // Lấy chỉ số của ký tự hiện tại trong chuỗi HEX để xác định giá trị tương ứng
-            BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(value.charAt(i)));
-
-            // Nhân giá trị của ký tự với cơ số đầu vào để tính giá trị tương ứng ở thập phân
-            BigInteger number = valueIndex.multiply(baseBigInteger);
-
-            // Cộng giá trị tương ứng vào kết quả tổng
+            BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(integerPart.charAt(i)));
+            // Khởi tạo giá trị cho số tại vị trí i
+            BigInteger number = valueIndex;
+            // Tính lũy thừa cho giá trị tại vị trí i
+            for (int j = 0; j < integerPart.length() - i - 1; j++) {
+                number = number.multiply(baseBigInteger);
+            }
+            // Cộng giá trị tại vị trí i vào kết quả tổng
             result = result.add(number);
-
-            // Tăng cơ số đầu vào lên baseInput lần tiếp theo để tính toán cho chữ số tiếp theo
-            baseBigInteger = baseBigInteger.multiply(BigInteger.valueOf(baseInput));
         }
 
+        // Xử lý phần thập phân nếu có
+        if (parts.length > 1) {
+            String fractionalPart = parts[1];
+            for (int i = 0; i < fractionalPart.length(); i++) {
+                // Lấy giá trị tương ứng của ký tự trong chuỗi HEX
+                int valueFrac = HEX.indexOf(fractionalPart.charAt(i));
+                // Khởi tạo giá trị cho số tại vị trí i
+                BigInteger digitValue = BigInteger.valueOf(valueFrac);
+                BigInteger power = BigInteger.ONE;
+                // Tính lũy thừa cho vị trí i trong phần thập phân
+                for (int j = 0; j < i + 1; j++) {
+                    power = power.multiply(baseBigInteger);
+                }
+                // Chia giá trị của số tại vị trí i cho lũy thừa để tính giá trị tương ứng ở hệ cơ số 10
+                BigInteger number = digitValue.divide(power);
+                // Cộng giá trị tương ứng vào kết quả tổng
+                result = result.add(number);
+            }
+        }
+
+        // Đảo dấu kết quả nếu đầu vào là số âm
         if (isNegative) {
-            result = result.negate(); // Đảo dấu kết quả nếu đầu vào là số âm
+            result = result.negate();
         }
 
+        // Trả về kết quả cuối cùng dưới dạng chuỗi
         return result.toString();
     }
 
-    // Chuyển đổi một số thập phân thành hệ cơ số khác
     private static String convertDecimalToOther(String decimalNumber, int base) {
         if (decimalNumber.equals("0")) {
             return "0";
@@ -136,19 +234,19 @@ public class ConvertBase {
         // Khởi tạo một đối tượng BigInteger từ chuỗi số thập phân đầu vào
         BigInteger decimalBigInteger = new BigInteger(decimalNumber);
 
-// Khởi tạo đối tượnsg BigInteger từ cơ số đầu vào
+        // Khởi tạo đối tượnsg BigInteger từ cơ số đầu vào
         BigInteger baseBigInteger = BigInteger.valueOf(base);
 
-// Chuỗi ký tự biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX trong hệ 16)
+        // Chuỗi ký tự biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX trong hệ 16)
         String HEX = "0123456789ABCDEF";
 
-// Chuỗi kết quả cuối cùng sau khi chuyển đổi
+        // Chuỗi kết quả cuối cùng sau khi chuyển đổi
         StringBuilder result = new StringBuilder();
 
-// Biến kiểm tra xem số thập phân đầu vào có âm hay không
+        // Biến kiểm tra xem số thập phân đầu vào có âm hay không
         boolean isNegative = false;
 
-// Kiểm tra xem số thập phân có âm hay không
+        // Kiểm tra xem số thập phân có âm hay không
         if (decimalBigInteger.compareTo(BigInteger.ZERO) < 0) {
             isNegative = true;
 
@@ -156,16 +254,17 @@ public class ConvertBase {
             decimalBigInteger = decimalBigInteger.abs();
         }
 
-// Vòng lặp chuyển đổi từ số thập phân sang hệ cơ số khác
+        // Vòng lặp chuyển đổi từ số thập phân sang hệ cơ số khác
         while (decimalBigInteger.compareTo(BigInteger.ZERO) > 0) {
             // Tính phần dư khi chia số thập phân cho cơ số mới
-            int remainder = decimalBigInteger.mod(baseBigInteger).intValue();
+            BigInteger[] divisionResult = decimalBigInteger.divideAndRemainder(baseBigInteger);
+            int remainder = divisionResult[1].intValue();
 
             // Lấy ký tự tương ứng với phần dư từ chuỗi HEX
             result.append(HEX.charAt(remainder));
 
             // Chia số thập phân cho cơ số mới để tiếp tục chuyển đổi các chữ số khác
-            decimalBigInteger = decimalBigInteger.divide(baseBigInteger);
+            decimalBigInteger = divisionResult[0];
         }
 
         if (isNegative) {
@@ -175,4 +274,51 @@ public class ConvertBase {
         return result.reverse().toString();
     }
 
+    /**
+     *     // Chuyển đổi một số thập phân thành hệ cơ số khác private static String
+     * convertDecimalToOther(String decimalNumber, int base) { if
+     * (decimalNumber.equals("0")) { return "0"; }
+     *
+     * // Khởi tạo một đối tượng BigInteger từ chuỗi số thập phân đầu vào
+     * BigInteger decimalBigInteger = new BigInteger(decimalNumber);
+     *
+     * // Khởi tạo đối tượnsg BigInteger từ cơ số đầu vào BigInteger
+     * baseBigInteger = BigInteger.valueOf(base);
+     *
+     * // Chuỗi ký tự biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX
+     * trong hệ 16) String HEX = "0123456789ABCDEF";
+     *
+     * // Chuỗi kết quả cuối cùng sau khi chuyển đổi StringBuilder result = new
+     * StringBuilder();
+     *
+     * // Biến kiểm tra xem số thập phân đầu vào có âm hay không boolean
+     * isNegative = false;
+     *
+     * // Kiểm tra xem số thập phân có âm hay không if
+     * (decimalBigInteger.compareTo(BigInteger.ZERO) < 0) {
+     * isNegative = true;
+     *
+     * // Lấy giá trị tuyệt đối để xử lý chuyển đổi
+     * decimalBigInteger = decimalBigInteger.abs();
+     * }
+     *
+     * // Vòng lặp chuyển đổi từ số thập phân sang hệ cơ số khác
+     * while (decimalBigInteger.compareTo(BigInteger.ZERO) > 0) { // Tính phần
+     * dư khi chia số thập phân cho cơ số mới int remainder =
+     * decimalBigInteger.mod(baseBigInteger).intValue();
+     *
+     * // Lấy ký tự tương ứng với phần dư từ chuỗi HEX
+     * result.append(HEX.charAt(remainder));
+     *
+     * // Chia số thập phân cho cơ số mới để tiếp tục chuyển đổi các chữ số
+     * khác decimalBigInteger = decimalBigInteger.divide(baseBigInteger); }
+     *
+     * if (isNegative) { result.append("-"); }
+     *
+     * return result.reverse().toString(); }
+     *
+     * @param decimalNumber
+     * @param base
+     * @return
+     */
 }
