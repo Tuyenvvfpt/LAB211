@@ -9,14 +9,6 @@ public class Utility {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-
-        String name = getString("Enter name: ", "Name must be string",
-                "[a-zA-Z]+");
-        System.out.println(name);
-
-    }
-
     public static int getInteger(String messageString, String error, int min, int max) {
         while (true) {
             try {

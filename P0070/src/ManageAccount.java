@@ -14,10 +14,10 @@ public class ManageAccount {
     Utility utility = new Utility();
 
     void mockData() {
-        listAccount.add(new Account("1234561111", "abc123456"));
-        listAccount.add(new Account("0344559999", "abc123444"));
-        listAccount.add(new Account("0344558888", "abc123333"));
-        listAccount.add(new Account("0344556666", "abc122222"));
+        listAccount.add(new Account("0123456789", "abcd1234"));
+        listAccount.add(new Account("0123456788", "abcd1233"));
+        listAccount.add(new Account("0344558888", "abcd1222"));
+        listAccount.add(new Account("0344556666", "abcd1111"));
     }
 
     void loginVietnamese() {
@@ -42,6 +42,7 @@ public class ManageAccount {
         String password = Utility.getString(resourceBundle.getString("messagePassword"),
                 resourceBundle.getString("messagePasswordError"), Utility.REGEX_PASSWORD);
 
+        //handel capcha
         handleCapcha(resourceBundle.getString("messageCapcha"), resourceBundle.getString("messageCapchaInput"),
                 resourceBundle.getString("messageCapchaError"));
 
@@ -57,8 +58,8 @@ public class ManageAccount {
         System.out.println(messCapcha + generateCapcha);
         while (true) {
             //input capcha
-            String inputCapcha = utility.getString(messInput, 
-                    "Capcha must be alphanumeric", utility.REGEX_CAPCHA);
+            String inputCapcha = Utility.getString(messInput,
+                    "Capcha must be alphanumeric", Utility.REGEX_CAPCHA);
             //compare capcha generate with input capcha
             if (!generateCapcha.contains(inputCapcha)) {
                 System.out.println(error);
@@ -70,22 +71,14 @@ public class ManageAccount {
 
     private String generateCapcha() {
         Random random = new Random();
-
-        int number;
-        String capcha = "";
+        String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int length = alphabet.length();
+        String result = "";
         for (int i = 0; i < 6; i++) {
-            int base = Math.abs(random.nextInt()) % 62;
-            if (base < 26) {
-                number = 65 + base;
-            } else if (base < 52) {
-                number = 97 + (base - 26);
-            } else {
-                number = base - 4;
-            }
-            char character = (char) number;
-            capcha = capcha + character;
+            int index = random.nextInt(length);
+            result += alphabet.charAt(index);
         }
-        return capcha;
+        return result;
     }
 
     private boolean checkAccount(String username, String password) {

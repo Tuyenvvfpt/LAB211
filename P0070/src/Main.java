@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
         ManageAccount manageAccount = new ManageAccount();
-        Utility utility = new Utility();
 
         while (true) {
             displayMenu();

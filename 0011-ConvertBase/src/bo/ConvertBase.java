@@ -1,5 +1,6 @@
 package bo;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -140,26 +141,50 @@ public class ConvertBase {
     }
 
     private static String convertDecimalToOther(String decimalNumber, int base) {
+        String HEX = "0123456789ABCDEF";
+
         if (decimalNumber.equals("0")) {
             return "0";
         }
-        String HEX = "0123456789ABCDEF";
-        StringBuilder result = new StringBuilder();
 
-        BigInteger decimalValue = new BigInteger(decimalNumber);
-        boolean isNegative = decimalValue.compareTo(BigInteger.ZERO) < 0;
+        String[] parts = decimalNumber.split("\\.");
+        BigInteger integerValue = new BigInteger(parts[0]);
+        StringBuilder result = new StringBuilder();
+        boolean isNegative = integerValue.compareTo(BigInteger.ZERO) < 0;
 
         if (isNegative) {
-            decimalValue = decimalValue.negate();
+            integerValue = integerValue.negate();
         }
 
-        while (decimalValue.compareTo(BigInteger.ZERO) > 0) {
-            BigInteger[] quotientAndRemainder = decimalValue.divideAndRemainder(BigInteger.valueOf(base));
+        BigInteger baseBigInteger = BigInteger.valueOf(base);
+
+        while (integerValue.compareTo(BigInteger.ZERO) > 0) {
+            BigInteger[] quotientAndRemainder = integerValue.divideAndRemainder(baseBigInteger);
             result.append(HEX.charAt(quotientAndRemainder[1].intValue()));
-            decimalValue = quotientAndRemainder[0];
+            integerValue = quotientAndRemainder[0];
         }
 
         result.reverse();
+
+        // Xử lý phần thập phân (nếu có)
+        if (parts.length > 1) {
+            result.append(".");
+            BigDecimal fractionalValue = new BigDecimal("0." + parts[1]);
+            int maxFractionalDigits = 10; // Điều chỉnh tùy theo nhu cầu
+            int currentFractionalDigits = 0;
+
+            while (fractionalValue.compareTo(BigDecimal.ZERO) > 0 && currentFractionalDigits < maxFractionalDigits) {
+                fractionalValue = fractionalValue.multiply(BigDecimal.valueOf(base));
+                BigInteger digit = fractionalValue.toBigInteger();
+                result.append(HEX.charAt(digit.intValue()));
+                fractionalValue = fractionalValue.subtract(new BigDecimal(digit));
+                currentFractionalDigits++;
+
+                if (currentFractionalDigits == maxFractionalDigits) {
+                    break; // Ngừng sau khi đạt đến số ký tự thập phân tối đa
+                }
+            }
+        }
 
         return isNegative ? "-" + result.toString() : result.toString();
     }
