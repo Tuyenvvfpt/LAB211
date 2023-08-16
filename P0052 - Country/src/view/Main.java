@@ -10,8 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
         ViewCountry view = new ViewCountry();
+        displayMenu();
         while (true) {
-            displayMenu();
             int option = Utility.getInteger("Enter option:  ", "Wrong", 1, 5);
 
             switch (option) {
@@ -45,7 +45,6 @@ public class Main {
                 + "3. Search the information of country by user-entered name\n"
                 + "4. Display the information of countries sorted name in ascending order  \n"
                 + "5. Exit \n"
-                + "==========================================================================v");
-        System.out.println("OK");
+                + "==========================================================================");
     }
 }

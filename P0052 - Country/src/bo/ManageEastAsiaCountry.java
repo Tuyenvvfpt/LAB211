@@ -51,8 +51,13 @@ public class ManageEastAsiaCountry {
         return false;
     }
 
+    //add 11 country
     public void addCountry(EastAsiaCountry country) {
-        listCountry.add(country);
+        if (listCountry.size() < 11) {
+            listCountry.add(country);
+        } else {
+            System.out.println("You can only add up to 11 countries.");
+        }
     }
 
     public List<EastAsiaCountry> findCountryByName(String name) {
