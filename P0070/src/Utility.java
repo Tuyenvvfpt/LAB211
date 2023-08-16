@@ -17,14 +17,6 @@ public class Utility {
 
     }
 
-    /**
-     *
-     * @param messageString
-     * @param error
-     * @param min
-     * @param max
-     * @return
-     */
     public static int getInteger(String messageString, String error, int min, int max) {
         while (true) {
             try {

@@ -1,5 +1,7 @@
 package bo;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author ADMIN
@@ -94,113 +96,71 @@ public class ConvertBase {
     }
 
     public static String convertOtherToDecimal(int baseInput, String value) {
-        if (value.equals("8")) {
+        if (value.equals("0")) {
             return "0";
         }
 
         boolean isNegative = false;
         if (value.startsWith("-")) {
             isNegative = true;
-            value = value.substring(1); // Loại bỏ ký tự âm từ giá trị
+            value = value.substring(1);
         }
 
-        double baseInt = baseInput;
-        double result = 0;
+        BigInteger result = BigInteger.ZERO;
         String HEX = "0123456789ABCDEF";
         String[] parts = value.split("\\.");
 
-        // Chuyển đổi phần nguyên
+        // Convert integer part
         String integerPart = parts[0];
-        double basePower = 1;
+        BigInteger basePower = BigInteger.ONE;
         for (int i = integerPart.length() - 1; i >= 0; i--) {
-            double valueIndex = HEX.indexOf(integerPart.charAt(i));
-            double number = valueIndex * basePower;
-            result += number;
-            basePower *= baseInt;
+            BigInteger valueIndex = BigInteger.valueOf(HEX.indexOf(integerPart.charAt(i)));
+            BigInteger number = valueIndex.multiply(basePower);
+            result = result.add(number);
+            basePower = basePower.multiply(BigInteger.valueOf(baseInput));
         }
 
-        // Chuyển đổi phần thập phân nếu có
+        // Convert fractional part if present
         if (parts.length > 1) {
             String fractionalPart = parts[1];
-            basePower = Math.pow(baseInt, -1);
+            basePower = BigInteger.ONE.divide(BigInteger.valueOf(baseInput));
             for (int i = 0; i < fractionalPart.length(); i++) {
                 int valueIndex = HEX.indexOf(fractionalPart.charAt(i));
-                double number = valueIndex * basePower;
-                result += number;
-                basePower /= baseInt;
+                BigInteger number = BigInteger.valueOf(valueIndex).multiply(basePower);
+                result = result.add(number);
+                basePower = basePower.divide(BigInteger.valueOf(baseInput));
             }
         }
 
         if (isNegative) {
-            result = -result; // Đảo dấu kết quả nếu đầu vào là số âm
+            result = result.negate();
         }
 
-        return Double.toString(result);
+        return result.toString();
     }
 
     private static String convertDecimalToOther(String decimalNumber, int base) {
         if (decimalNumber.equals("0")) {
             return "0";
         }
-
-        // Chuyển đổi chuỗi số thập phân thành số dấu phẩy động
-        double decimalDouble = Double.parseDouble(decimalNumber);
-
-        // Tách phần nguyên và phần thập phân từ số dấu phẩy động
-        int integerPart = (int) Math.abs(decimalDouble);
-        double fractionalPart = Math.abs(decimalDouble) - integerPart;
-
-        // Khởi tạo giá trị của cơ số dưới dạng số dấu phẩy động
-        double baseDouble = base;
-
-        // Chuỗi ký tự biểu diễn các giá trị trong hệ cơ số mới (ví dụ: HEX trong hệ 16)
         String HEX = "0123456789ABCDEF";
-
-        // Chuỗi kết quả cuối cùng sau khi chuyển đổi
         StringBuilder result = new StringBuilder();
 
-        // Biến kiểm tra xem số thập phân đầu vào có âm hay không
-        boolean isNegative = false;
+        BigInteger decimalValue = new BigInteger(decimalNumber);
+        boolean isNegative = decimalValue.compareTo(BigInteger.ZERO) < 0;
 
-        // Kiểm tra xem số thập phân có âm hay không
-        if (decimalDouble < 0) {
-            isNegative = true;
+        if (isNegative) {
+            decimalValue = decimalValue.negate();
         }
 
-        // Chuyển đổi phần nguyên sang hệ cơ số mới
-        while (integerPart > 0) {
-            int remainder = integerPart % base;
-            result.append(HEX.charAt(remainder));
-            integerPart /= base;
+        while (decimalValue.compareTo(BigInteger.ZERO) > 0) {
+            BigInteger[] quotientAndRemainder = decimalValue.divideAndRemainder(BigInteger.valueOf(base));
+            result.append(HEX.charAt(quotientAndRemainder[1].intValue()));
+            decimalValue = quotientAndRemainder[0];
         }
 
-        // Đảo ngược chuỗi kết quả để hiển thị đúng giá trị
         result.reverse();
 
-        // Xử lý phần thập phân (nếu có)
-        if (fractionalPart > 0) {
-            result.append(".");
-
-            // Giới hạn số lượng chữ số thập phân để tránh vòng lặp vô hạn
-            int maxFractionalDigits = 10;
-            int currentFractionalDigits = 0;
-
-            // Chuyển đổi phần thập phân sang hệ cơ số mới
-            while (fractionalPart > 0 && currentFractionalDigits < maxFractionalDigits) {
-                double product = fractionalPart * baseDouble;
-                int digit = (int) product;
-                result.append(HEX.charAt(digit));
-                fractionalPart = product - digit;
-                currentFractionalDigits++;
-            }
-        }
-
-        // Nếu số thập phân đầu vào là âm, thêm ký tự '-' vào kết quả
-        if (isNegative) {
-            result.insert(0, "-");
-        }
-
-        return result.toString();
+        return isNegative ? "-" + result.toString() : result.toString();
     }
-
 }

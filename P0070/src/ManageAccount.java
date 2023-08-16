@@ -37,10 +37,10 @@ public class ManageAccount {
 
         ResourceBundle resourceBundle = ResourceBundle.getBundle("language/message", locale);
 
-        String username = utility.getString(resourceBundle.getString("messageUsername"),
-                resourceBundle.getString("messageUsernameError"), utility.REGEX_USERNAME);
-        String password = utility.getString(resourceBundle.getString("messagePassword"),
-                resourceBundle.getString("messagePasswordError"), utility.REGEX_PASSWORD);
+        String username = Utility.getString(resourceBundle.getString("messageUsername"),
+                resourceBundle.getString("messageUsernameError"), Utility.REGEX_USERNAME);
+        String password = Utility.getString(resourceBundle.getString("messagePassword"),
+                resourceBundle.getString("messagePasswordError"), Utility.REGEX_PASSWORD);
 
         handleCapcha(resourceBundle.getString("messageCapcha"), resourceBundle.getString("messageCapchaInput"),
                 resourceBundle.getString("messageCapchaError"));
@@ -57,7 +57,8 @@ public class ManageAccount {
         System.out.println(messCapcha + generateCapcha);
         while (true) {
             //input capcha
-            String inputCapcha = utility.getString(messInput, "Capcha must be alphanumeric", utility.REGEX_CAPCHA);
+            String inputCapcha = utility.getString(messInput, 
+                    "Capcha must be alphanumeric", utility.REGEX_CAPCHA);
             //compare capcha generate with input capcha
             if (!generateCapcha.contains(inputCapcha)) {
                 System.out.println(error);
