@@ -128,13 +128,15 @@ public class ConvertBase {
         // Chuyển đổi phần thập phân nếu có
         if (parts.length > 1) {
             String fractionalPart = parts[1];
-            BigDecimal basePowerDec = BigDecimal.ONE.divide(new BigDecimal(baseInt), fractionalPart.length() * 2, BigDecimal.ROUND_DOWN); // Chia 1 cho cơ số để tính lũy thừa âm
+            BigDecimal basePowerDec = BigDecimal.ONE.divide(new BigDecimal(baseInt),
+                    fractionalPart.length() * 2, BigDecimal.ROUND_DOWN); // Chia 1 cho cơ số để tính lũy thừa âm
             BigDecimal tempResult = BigDecimal.ZERO;
             for (int i = 0; i < fractionalPart.length(); i++) {
                 int valueIndex = HEX.indexOf(fractionalPart.charAt(i));
                 BigDecimal number = new BigDecimal(valueIndex).multiply(basePowerDec);
                 tempResult = tempResult.add(number);
-                basePowerDec = basePowerDec.divide(new BigDecimal(baseInt), fractionalPart.length() * 2, BigDecimal.ROUND_DOWN);
+                basePowerDec = basePowerDec.divide(new BigDecimal(baseInt),
+                        fractionalPart.length() * 2, BigDecimal.ROUND_DOWN);
             }
             result = result.add(tempResult);
         }

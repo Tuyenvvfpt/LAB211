@@ -9,8 +9,7 @@ import java.util.ResourceBundle;
 public class Main {
 
     public static void main(String[] args) {
-        ManageAccount manageAccount = new ManageAccount();
-        Utility utility = new Utility();
+        Ebank manageAccount = new Ebank();
 
         while (true) {
             displayMenu();
@@ -20,9 +19,14 @@ public class Main {
             switch (option) {
                 case 1:
                     manageAccount.loginVietnamese();
+//                    manageAccount.setCurrentLocale(new Locale("vi")); // Set Vietnamese locale
+//                    new Ebank().setCurrentLocale(Locale.ENGLISH);
+//                    manageAccount.login();
                     break;
                 case 2:
                     manageAccount.loginEnglish();
+//                    manageAccount.setCurrentLocale(Locale.ENGLISH); // Keep English locale
+//                    manageAccount.login();
                     break;
                 case 3:
                     System.exit(0);

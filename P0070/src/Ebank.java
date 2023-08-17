@@ -9,10 +9,11 @@ import java.util.ResourceBundle;
  *
  * @author asus
  */
-public class ManageAccount {
+public class Ebank {
 
     ArrayList<Account> listAccount = new ArrayList<>();
     Utility utility = new Utility();
+    Locale currentLocale = Locale.ENGLISH; // Default language is English
 
     void mockData() {
         listAccount.add(new Account("0123456789", "abcd1234"));
@@ -21,6 +22,25 @@ public class ManageAccount {
         listAccount.add(new Account("0344556666", "abcd1111"));
     }
 
+//    public void setCurrentLocale(Locale locale) {
+//        currentLocale = locale;
+//    }
+//
+//    void login() {
+//        ResourceBundle resourceBundle = ResourceBundle.getBundle("language/message", currentLocale);
+//
+//        String username = Utility.getString(resourceBundle.getString("messageUsername"),
+//                resourceBundle.getString("messageUsernameError"), Utility.REGEX_USERNAME);
+//        String password = Utility.getString(resourceBundle.getString("messagePassword"),
+//                resourceBundle.getString("messagePasswordError"), Utility.REGEX_PASSWORD);
+//
+//        handleCapcha(resourceBundle.getString("messageCapcha"), resourceBundle.getString("messageCapchaInput"),
+//                resourceBundle.getString("messageCapchaError"));
+//
+//        if (!checkAccount(username, password)) {
+//            System.out.println(resourceBundle.getString("messageAccountError"));
+//        }
+//    }
     void loginVietnamese() {
 
         Locale localeVi = new Locale("vi");
