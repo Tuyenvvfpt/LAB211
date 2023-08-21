@@ -10,6 +10,8 @@ package entity;
  */
 public class Task {
 
+    //bien static la bien thuoc ve class, chu khong phai thuoc ve doi tuong
+
     private static int auto_Increment = 1;
     private int id;
     private int taskTypeID;
@@ -120,7 +122,7 @@ public class Task {
     public String toString() {
         return String.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s",
                 id, requirementName, getTaskTypeString(), date, planFrom, planTo,
-                 assignee, reviewer);
+                assignee, reviewer);
     }
 
 }

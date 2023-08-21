@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class Utility {
 
     public static String REGEX_USERNAME = "\\d{10}";
+    //(?=.*\\d): tim kiem trong chuoi co ton tai so hay khong
+    //(?=.*[a-zA-Z]): tim kiem trong chuoi co ton tai chu hay khong
+    //\\S{8,31}: no khong chua khoang trang va co 8-31 ki tu 
     public static String REGEX_PASSWORD = "(?=.*\\d)(?=.*[a-zA-Z])\\S{8,31}";
     public static String REGEX_CAPCHA = "[a-zA-Z0-9]+";
 
