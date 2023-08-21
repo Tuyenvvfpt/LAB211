@@ -25,10 +25,10 @@ public class Main {
                     view.inputTask();
                     break;
                 case 2:
-//                    view.deleteTask();
+                    view.deleteTask();
                     break;
                 case 3:
-//                    view.displayTask();
+                    view.displayTask();
                     break;
                 case 4:
                     System.exit(0);
