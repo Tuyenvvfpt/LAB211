@@ -11,7 +11,6 @@ package entity;
 public class Task {
 
     //bien static la bien thuoc ve class, chu khong phai thuoc ve doi tuong
-
     private static int auto_Increment = 1;
     private int id;
     private int taskTypeID;
@@ -22,7 +21,7 @@ public class Task {
     private String assignee;
     private String reviewer;
 
-    public Task(int taskTypeID, String requirementName, String date, double planFrom,
+    public Task(String requirementName, int taskTypeID, String date, double planFrom,
             double planTo, String assignee, String reviewer) {
         this.id = auto_Increment++;
         this.taskTypeID = taskTypeID;

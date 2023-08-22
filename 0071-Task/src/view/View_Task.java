@@ -19,8 +19,8 @@ class View_Task {
     void inputTask() {
         //input properties
         System.out.println("------------Add Task---------------");
-        int taskType = getTaskType();
         String requirement = getRequirementName();
+        int taskType = getTaskType();
         String date = getDate();
         double from = getFrom();
         double to = getTo(from);
@@ -28,7 +28,7 @@ class View_Task {
         String reviewer = getReviewer();
 
         //add Task 
-        int result = bo.addTask(taskType, requirement, date, from, to, assignee, reviewer);
+        int result = bo.addTask(requirement, taskType, date, from, to, assignee, reviewer);
 
         if (result == -1) {
             System.out.println("Overlaps task");
@@ -38,7 +38,7 @@ class View_Task {
     }
 
     void deleteTask() {
-        int idInput = Utility.getInt("Enter id: ", "Wrong", 
+        int idInput = Utility.getInt("Enter id: ", "Wrong",
                 "Wrong", "Wrong", 0, Integer.MAX_VALUE);
 
         for (Task task : bo.getList()) {
@@ -56,23 +56,21 @@ class View_Task {
 
         System.out.println("------------Task List---------------");
         System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
-                "id", "taskType", "requirement", "date",
-                "from", "to", "assignee", "reviewer");
+                "id", "requirement", "taskType", "date",
+                "time", "assignee", "reviewer");
         for (Task task : bo.getList()) {
-//            int id = task.getId();
-//            String taskType = task.getTaskTypeString();
-//            String requirement = task.getRequirementName();
-//            String date = task.getDate();
-//            double from = task.getPlanFrom();
-//            double to = task.getPlanTo();
-//            String assignee = task.getAssignee();
-//            String reviewer = task.getReviewer();
-//
-//            System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
-//                    id, taskType, requirement, date, from, to, assignee, reviewer);
+            int id = task.getId();
+            String taskType = task.getTaskTypeString();
+            String requirement = task.getRequirementName();
+            String date = task.getDate();
+            double time = task.getPlanTo() - task.getPlanFrom();
+            String assignee = task.getAssignee();
+            String reviewer = task.getReviewer();
 
-            System.out.println(task);
+            System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
+                    id, requirement, taskType, date, time, assignee, reviewer);
 
+//            System.out.println(task);
         }
     }
 

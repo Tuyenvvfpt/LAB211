@@ -24,13 +24,15 @@ public class TaskBO {
         return list;
     }
 
-    public int addTask(int taskType, String requirement, String date, double from, double to, String assignee, String reviewer) {
+    public int addTask(String requirement, int taskType, String date, double from,
+            double to, String assignee, String reviewer) {
         //kiem tra xem co bi duplicate hay k
         //bi duplicate -> return -1 
-        if (checkOverlaps(taskType, requirement, date, from, to, assignee, reviewer)) {
+        if (checkOverlaps(requirement, taskType, date, from, to, assignee, reviewer)) {
             return -1;
         } else {
-            Task task = new Task(taskType, requirement, date, from, to, assignee, reviewer);
+            Task task = new Task(requirement, taskType, date,
+                    from, to, assignee, reviewer);
             list.add(task);
             return task.getId();
         }
@@ -38,7 +40,8 @@ public class TaskBO {
         //ko bi duplicate -> return id task
     }
 
-    public boolean checkOverlaps(int taskType, String requirement, String date, double from, double to, String assignee, String reviewer) {
+    public boolean checkOverlaps(String requirement, int taskType, String date,
+            double from, double to, String assignee, String reviewer) {
         for (Task task : list) {
             if (task.getTaskTypeID() == taskType
                     && task.getRequirementName().equals(requirement)
