@@ -8,6 +8,11 @@ import java.util.ResourceBundle;
  * Lớp này đại diện cho ứng dụng Ebank dùng cho xác thực người dùng.
  */
 public class Ebank {
+    //(?=.*\\d): tim kiem trong chuoi co ton tai so hay khong
+    //(?=.*[a-zA-Z]): tim kiem trong chuoi co ton tai chu hay khong
+    //\\S{8,31}: no khong chua khoang trang va co 8-31 ki tu 
+
+    public static String REGEX_PASSWORD = "(?=.*\\d)(?=.*[a-zA-Z])\\S{8,31}";
 
     private ResourceBundle rb; // ResourceBundle để đa ngôn ngữ hóa
     public Locale locale; // Locale hiện tại cho cài đặt ngôn ngữ

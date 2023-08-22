@@ -1,10 +1,9 @@
 package LogIn;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 /**
  * Lớp quản lý giao diện người dùng cho chương trình đăng nhập.
@@ -13,10 +12,20 @@ public class Manager {
 
     private Locale locate; // Locale để cài đặt ngôn ngữ
     private ResourceBundle rb; // ResourceBundle để đa ngôn ngữ hóa
-
     Ebank eBank = new Ebank(rb); // Đối tượng Ebank để thực hiện các chức năng liên quan đến xác thực
 
-    static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    static Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Hiển thị menu cho người dùng.
+     */
+    public void menu() {
+        System.out.println("-------Chương trình Đăng nhập-------");
+        System.out.println("1. Tiếng Việt");
+        System.out.println("2. Tiếng Anh");
+        System.out.println("3. Thoát");
+        System.out.println();
+    }
 
     /**
      * Phương thức để nhập lựa chọn từ người dùng.
@@ -28,27 +37,16 @@ public class Manager {
         while (true) {
             try {
                 System.out.print("Nhập lựa chọn của bạn: ");
-                num = Integer.parseInt(in.readLine());
+                num = Integer.parseInt(scanner.nextLine());
                 if (num >= 1 && num <= 3) {
                     return num;
                 } else {
                     System.out.println("Lỗi! Lựa chọn của bạn phải trong khoảng [1,3]");
                 }
-            } catch (IOException | NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Đầu vào không hợp lệ! Đầu vào của bạn phải là một số");
             }
         }
-    }
-
-    /**
-     * Hiển thị menu cho người dùng.
-     */
-    public void menu() {
-        System.out.println("-------Chương trình Đăng nhập-------");
-        System.out.println("1. Tiếng Việt");
-        System.out.println("2. Tiếng Anh");
-        System.out.println("3. Thoát");
-        System.out.println();
     }
 
     /**
@@ -87,13 +85,13 @@ public class Manager {
      */
     private String inputAccount() throws IOException {
         while (true) {
-            System.out.print(rb.getString("account"));
-            String acc = in.readLine();
-            String checkAcc = eBank.checkAccount(acc);
+            System.out.print(rb.getString("account")); // Hiển thị thông báo yêu cầu nhập số tài khoản
+            String acc = scanner.nextLine(); // Đọc số tài khoản từ người dùng sử dụng Scanner
+            String checkAcc = eBank.checkAccount(acc); // Kiểm tra tính hợp lệ của số tài khoản
             if (checkAcc == null && !acc.isEmpty()) {
-                return acc;
+                return acc; // Trả về số tài khoản nếu hợp lệ và không trống
             } else {
-                System.out.println(checkAcc);
+                System.out.println(checkAcc); // Hiển thị thông báo lỗi nếu số tài khoản không hợp lệ hoặc trống
             }
         }
     }
@@ -107,7 +105,7 @@ public class Manager {
     private String inputPassword() throws IOException {
         while (true) {
             System.out.print(rb.getString("password"));
-            String pass = in.readLine();
+            String pass = scanner.nextLine();
             String checkPass = eBank.checkPassword(pass);
             if (checkPass == null && !pass.isEmpty()) {
                 return pass;
@@ -124,17 +122,17 @@ public class Manager {
      * @throws IOException Nếu có lỗi khi đọc đầu vào.
      */
     private String inputCaptcha() throws IOException {
+
         String inputCaptcha;
+        String login = rb.getString("logIn");
+        String capt = eBank.randomCaptcha();
+        System.out.println("Captcha: " + capt);
 
         while (true) {
-            String capt = eBank.randomCaptcha();
-            String login = rb.getString("logIn");
-            System.out.println("Captcha: " + capt);
-            System.out.print(rb.getString("captchaInput"));
-            inputCaptcha = in.readLine();
+            System.out.print(rb.getString("inputCaptcha"));
+            inputCaptcha = scanner.nextLine();
 
-            if (eBank.checkCaptcha(capt, inputCaptcha) == null
-                    && !inputCaptcha.isEmpty()) {
+            if (eBank.checkCaptcha(capt, inputCaptcha) == null) {
                 System.out.println(login);
                 return inputCaptcha;
             } else {
