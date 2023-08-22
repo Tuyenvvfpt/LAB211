@@ -22,20 +22,19 @@ public class Main {
                     1, 4);
             switch (option) {
                 case 1:
-                    view.inputTask();
+                    view.add();
                     break;
                 case 2:
-                    view.deleteTask();
+                    view.delete();
                     break;
                 case 3:
-                    view.displayTask();
+                    view.show();
                     break;
                 case 4:
                     System.exit(0);
                     break;
             }
         }
-
     }
 
     private static void displayMenu() {

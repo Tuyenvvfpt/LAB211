@@ -117,7 +117,7 @@ public class Utility {
 
         while (true) {
 
-            System.out.println(messageString);
+            System.out.print(messageString);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             //input date
             String dateInput = scanner.nextLine();
@@ -142,6 +142,57 @@ public class Utility {
         } catch (ParseException ex) {
             return false;
         }
-
     }
+
+    //input data
+    public static String getRequirementName() {
+        String requirement = Utility.getString("Requirement Name: ",
+                "Requirement Name must be letters or digits",
+                Utility.REGEX_STRING);
+        return requirement;
+    }
+
+    public static int getTaskType() {
+        int result = Utility.getInt("Enter task type: ",
+                "It must be from 1-4",
+                "It must be from 1-4",
+                "It must be digits", 1, 4);
+        return result;
+    }
+
+    public static String getDate() {
+        String date = Utility.getDate("Enter date: ",
+                "date must be format dd-MM-yyyy",
+                "Date does not exist");
+        return date;
+    }
+
+    public static double getFrom() {
+        double from = Utility.getDouble("Enter from: ", "Wrong",
+                "Wrong", "Wrong",
+                8, 17);  //de bai co
+        return from;
+    }
+
+    public static double getTo(double from) {
+        double to = Utility.getDouble("Enter to: ",
+                "Wrong", "Wrong", "Wrong",
+                from + 0.5, 17.5);
+        return to;
+    }
+
+    public static String getAssignee() {
+        String assignee = Utility.getString("Enter assignee: ",
+                "Wrong",
+                Utility.REGEX_STRING);
+        return assignee;
+    }
+
+    public static String getReviewer() {
+        String reviewer = Utility.getString("Enter reviewer: ",
+                "Wrong",
+                Utility.REGEX_STRING);
+        return reviewer;
+    }
+
 }

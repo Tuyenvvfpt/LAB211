@@ -20,7 +20,7 @@ public class TaskBO {
         list = new ArrayList<>();
     }
 
-    public List<Task> getList() {
+    public List<Task> getDataTask() {
         return list;
     }
 
@@ -59,7 +59,18 @@ public class TaskBO {
         return false;
     }
 
-//    //ham de kiem tra xem tat ca cac thuoc tinh nhap vao co ko bi overlaps ko
+    public boolean deleteTask(int idInput) {
+        for (Task task : list) {
+            //if task has id equal to idInput => remove
+            if (task.getId() == idInput) {
+                list.remove(task);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //    //ham de kiem tra xem tat ca cac thuoc tinh nhap vao co ko bi overlaps ko
 //    // => true => bi overlaps
 //    // => false => ko bi overlaps
 //    public boolean checkOverlaps(String date, String assignee, double from, double to) {
