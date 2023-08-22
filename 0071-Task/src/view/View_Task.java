@@ -55,7 +55,7 @@ class View_Task {
     void displayTask() {
 
         System.out.println("------------Task List---------------");
-        System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
+        System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
                 "id", "requirement", "taskType", "date",
                 "time", "assignee", "reviewer");
         for (Task task : bo.getList()) {
