@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package pkg0074;
 
 import java.util.Scanner;
@@ -12,19 +8,13 @@ import java.util.Scanner;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         Main m = new Main();
-
         while (true) {
-
-            int choice = 0;
             displayMenu();
-            choice = inputChoice();
+            int choice = inputChoice();
             switch (choice) {
                 case 1:
                     m.choiceAdditionMatrix();
@@ -56,7 +46,6 @@ public class Main {
         int choice;
         while (true) {
             try {
-
                 choice = Integer.parseInt(inputString());
                 if (choice <= 4 || choice >= 1) {
                     return choice;
@@ -92,7 +81,6 @@ public class Main {
         int number;
         while (true) {
             try {
-
                 number = Integer.parseInt(inputString());
                 if (number > 0) {
                     return number;
@@ -103,6 +91,33 @@ public class Main {
                 System.out.println("Enter positive number");
             }
         }
+    }
+
+    private boolean checkRowColMatrix(int value1, int value2) {
+        return value1 == value2;
+    }
+
+    /**
+     * input matrix tu 1 toi = row + 1
+     *
+     * @param str
+     * @param row
+     * @param col
+     * @return
+     */
+    private int[][] inputMatrix(String str, int row, int col) {
+        //Mục đích của việc thêm 1 đơn vị vào số hàng và số cột là để có thể sử dụng
+        //chỉ số từ 1 thay vì chỉ số mảng 0-based khi nhập giá trị từ người dùng.
+        //vd: matrix[2,2] => mang [2,2] gom 0,1 => de i va j co the hien thi 1 va 2 
+        int matrix[][] = new int[row + 1][col + 1];
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+                //nhan gia tri va hien thi
+                System.out.println("Enter " + str + "[" + i + "]" + "[" + j + "]:");
+                matrix[i][j] = inputValueMatrix();
+            }
+        }
+        return matrix;
     }
 
     public int inputValueMatrix() {
@@ -122,67 +137,18 @@ public class Main {
         }
     }
 
-    public int inputRowMatrix2(int row1) {
-        int row;
-        while (true) {
-            try {
-
-                row = Integer.parseInt(inputString());
-                if (row != row1) {
-                    System.out.println("Pls enter row equal to row matrix 1");
-                } else {
-                    return row;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Pls enter only number");
-            }
-        }
-    }
-
-    private boolean checkRowColMatrix(int value1, int value2) {
-        return value1 == value2;
-    }
-
-    public int inputColMatrix2(int col1) {
-        int col;
-        while (true) {
-            try {
-
-                col = Integer.parseInt(inputString());
-                if (col != col1) {
-                    System.out.println("Pls enter col equal to row matrix 1");
-                } else {
-                    return col;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Pls enter only number");
-            }
-        }
-    }
-
-    public int inputRowCowMatrix2Multiplication(int col) {
-        int row;
-        while (true) {
-            try {
-                row = Integer.parseInt(inputString());
-                if (row != col) {
-                    System.out.println("Pls enter row equal to col matrix 1");
-                } else {
-                    return row;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Pls enter only number");
-            }
-        }
-    }
-
+    /**
+     * display matrix 1 toi row
+     *
+     * @param matrix
+     */
     private void displayMatrix(int[][] matrix) {
         int row = matrix.length;
         int col = matrix[1].length;
-
+        //vd: matrix[2,2] => row/col = 2 => i = 1 j = 1&2 i = 2 j = 1&2
         for (int i = 1; i < row; i++) {
             for (int j = 1; j < col; j++) {
-                System.out.println("[" + matrix[i][j] + "]");
+                System.out.print("[" + matrix[i][j] + "]");
             }
             System.out.println("");
         }
@@ -190,23 +156,22 @@ public class Main {
 
     private void choiceAdditionMatrix() {
         System.out.println("--Addtion--");
-        System.out.print("enter row matrix 1: ");
+        System.out.println("Enter row matrix 1: ");
         int row1 = inputPositiveNumber();
         System.out.println("Enter col matrix 1: ");
         int col1 = inputPositiveNumber();
-
         int matrix1[][] = inputMatrix("Matrix1", row1, col1);
 
         System.out.println("");
-        System.out.println("enter row matrix 2: ");
+        System.out.println("Enter row matrix 2: ");
         int row2 = inputPositiveNumber();
         System.out.println("Enter col matrix 2: ");
         int col2 = inputPositiveNumber();
-
-        int matrix2[][] = inputMatrix("Matrix2", row1, col1);
+        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
 
         System.out.println("----Result----");
 
+        //neu cong, check 2 matrix co cung kich thuoc
         if (checkRowColMatrix(row1, row2)
                 && checkRowColMatrix(col1, col2)) {
             displayMatrix(matrix1);
@@ -218,71 +183,6 @@ public class Main {
             displayMatrix(matrix);
         } else {
             System.out.println("matrix 1 dont add matrix 2");
-        }
-    }
-
-    private void choiceSubtractionMatrix() {
-        System.out.println("--Subtraction--");
-        System.out.print("enter row matrix 1: ");
-        int row1 = inputPositiveNumber();
-        System.out.println("Enter col matrix 1: ");
-        int col1 = inputPositiveNumber();
-
-        int matrix1[][] = inputMatrix("Matrix1", row1, col1);
-
-        System.out.println("");
-        System.out.println("enter row matrix 2: ");
-        int row2 = inputRowMatrix2(row1);
-        System.out.println("Enter col matrix 2: ");
-        int col2 = inputColMatrix2(col1);
-
-        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
-
-        System.out.println("----Result----");
-
-        if (checkRowColMatrix(row1, row2)
-                && checkRowColMatrix(col1, col2)) {
-            displayMatrix(matrix1);
-            System.out.println(" - ");
-            displayMatrix(matrix2);
-            System.out.println(" = ");
-
-            int matrix[][] = subtractionMatrix(matrix1, matrix2);
-            displayMatrix(matrix);
-        } else {
-            System.out.println("matrix 1 dont sub matrix 2");
-        }
-    }
-
-    private void choiceMultiplicationMatrix() {
-        System.out.println("--Multiplication--");
-        System.out.print("enter row matrix 1: ");
-        int row1 = inputPositiveNumber();
-        System.out.println("Enter col matrix 1: ");
-        int col1 = inputPositiveNumber();
-
-        int matrix1[][] = inputMatrix("Matrix1", row1, col1);
-
-        System.out.println("");
-        System.out.println("enter row matrix 2: ");
-        int row2 = inputPositiveNumber();
-        System.out.println("Enter col matrix 2: ");
-        int col2 = inputPositiveNumber();
-
-        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
-
-        System.out.println("----Result----");
-
-        if (checkRowColMatrix(col1, row2)) {
-            displayMatrix(matrix1);
-            System.out.println(" * ");
-            displayMatrix(matrix2);
-            System.out.println(" = ");
-
-            int matrix[][] = multiplicationMatrix(matrix1, matrix2);
-            displayMatrix(matrix);
-        } else {
-            System.out.println("matrix 1 dont mul matrix 2");
         }
     }
 
@@ -299,13 +199,47 @@ public class Main {
         return matrix;
     }
 
+    private void choiceSubtractionMatrix() {
+        System.out.println("--Subtraction--");
+        System.out.println("enter row matrix 1: ");
+        int row1 = inputPositiveNumber();
+        System.out.println("Enter col matrix 1: ");
+        int col1 = inputPositiveNumber();
+
+        int matrix1[][] = inputMatrix("Matrix1", row1, col1);
+
+        System.out.println("");
+        System.out.println("enter row matrix 2: ");
+        int row2 = inputPositiveNumber();
+        System.out.println("Enter col matrix 2: ");
+        int col2 = inputPositiveNumber();
+
+        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
+
+        System.out.println("----Result----");
+
+        //neu tru, check 2 matrix co cung kich thuoc
+        if (checkRowColMatrix(row1, row2)
+                && checkRowColMatrix(col1, col2)) {
+            displayMatrix(matrix1);
+            System.out.println(" - ");
+            displayMatrix(matrix2);
+            System.out.println(" = ");
+
+            int matrix[][] = subtractionMatrix(matrix1, matrix2);
+            displayMatrix(matrix);
+        } else {
+            System.out.println("matrix 1 dont sub matrix 2");
+        }
+    }
+
     private int[][] subtractionMatrix(int[][] matrix1, int[][] matrix2) {
         int row1 = matrix1.length;
         int col1 = matrix1[1].length;
-        int row2 = matrix2.length;
-        int col2 = matrix2[1].length;
+//        int row2 = matrix2.length;
+//        int col2 = matrix2[1].length;
 
-        int matrix[][] = new int[row2][col2];
+        int matrix[][] = new int[row1][col1];
         for (int i = 0; i < row1; i++) {
             for (int j = 0; j < col1; j++) {
                 matrix[i][j] = matrix1[i][j] - matrix2[i][j];
@@ -314,11 +248,46 @@ public class Main {
         return matrix;
     }
 
+    private void choiceMultiplicationMatrix() {
+        System.out.println("--Multiplication--");
+        System.out.println("enter row matrix 1: ");
+        int row1 = inputPositiveNumber();
+        System.out.println("Enter col matrix 1: ");
+        int col1 = inputPositiveNumber();
+
+        int matrix1[][] = inputMatrix("Matrix1", row1, col1);
+
+        System.out.println("");
+        System.out.println("enter row matrix 2: ");
+        int row2 = inputPositiveNumber();
+        System.out.println("Enter col matrix 2: ");
+        int col2 = inputPositiveNumber();
+
+        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
+
+        System.out.println("----Result----");
+
+        //neu nham, check matrix1' col == matrix2' row
+        if (checkRowColMatrix(col1, row2)) {
+
+            displayMatrix(matrix1);
+            System.out.println(" * ");
+            displayMatrix(matrix2);
+            System.out.println(" = ");
+
+            int matrix[][] = multiplicationMatrix(matrix1, matrix2);
+            displayMatrix(matrix);
+        } else {
+            System.out.println("matrix 1 dont mul matrix 2");
+        }
+    }
+
     private int[][] multiplicationMatrix(int[][] matrix1, int[][] matrix2) {
         int row1 = matrix1.length;
         int col1 = matrix1[1].length;
         int col2 = matrix2[1].length;
 
+        //tao ra matrix moi voi hang matrix1 cot matrix2
         int matrix[][] = new int[row1][col2];
         for (int i = 0; i < row1; i++) {
             for (int j = 0; j < col2; j++) {
@@ -330,16 +299,4 @@ public class Main {
         }
         return matrix;
     }
-
-    private int[][] inputMatrix(String str, int row, int col) {
-        int matrix[][] = new int[row + 1][col + 1];
-        for (int i = 1; i <= row; i++) {
-            for (int j = 1; j <= col; j++) {
-                System.out.println("Enter " + str + "[" + i + "]" + "[" + j + "]:");
-                matrix[i][j] = inputValueMatrix();
-            }
-        }
-        return matrix;
-    }
-
 }
