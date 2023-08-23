@@ -10,8 +10,9 @@ public class Main {
 
     public static void main(String[] args) {
         ViewCountry view = new ViewCountry();
-        displayMenu();
         while (true) {
+            //update them
+            displayMenu();
             int option = Utility.getInteger("Enter option:  ", "Wrong", 1, 5);
 
             switch (option) {

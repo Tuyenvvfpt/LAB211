@@ -98,7 +98,7 @@ public class BirnarySearch {
             // Vòng lặp trong cùng để duyệt từ đầu mảng đến phần tử cuối cùng trừ đi số lần đã sắp xếp (j)
             for (int i = 0; i < n - j - 1; i++) {
                 // Nếu phần tử hiện tại lớn hơn phần tử kế tiếp, thì hoán đổi chỗ 2 phần tử này
-                if (array[i] < array[i + 1]) {
+                if (array[i] > array[i + 1]) {
                     int temp = array[i];
                     array[i] = array[i + 1];
                     array[i + 1] = temp;

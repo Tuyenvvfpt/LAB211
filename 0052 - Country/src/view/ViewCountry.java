@@ -20,6 +20,8 @@ import java.util.List;
 public class ViewCountry {
 
     ManageEastAsiaCountry bo = new ManageEastAsiaCountry();
+    //update them
+    private EastAsiaCountry[] countryArray;
 
     void inputCountry() {
         //require input information
@@ -61,6 +63,9 @@ public class ViewCountry {
 
         //add to collections
         bo.addCountry(country);
+        //update them
+        countryArray = new EastAsiaCountry[bo.getListCountry().size()];
+        bo.getListCountry().toArray(countryArray);
     }
 
     void displayCountryJustInput() {
@@ -74,9 +79,14 @@ public class ViewCountry {
         }
         //khong rong => hien thi quoc gia vua nhap
         //lay ve quoc gia nam o vi tri cuoi cung (quoc gia vua moi nhap)
-        EastAsiaCountry country = list.get(list.size() - 1);
-        System.out.format("%-15s %-15s %-15s %-15s\n", "Code", "Name", "Area", "Terrain");
-        country.display();
+        if (countryArray == null) {
+            System.out.println("List is empty");
+        } else {
+            EastAsiaCountry country = countryArray[list.size() - 1];
+            System.out.format("%-15s %-15s %-15s %-15s\n", "Code", 
+                    "Name", "Area", "Terrain");
+            country.display();
+        }
     }
 
     void searchCountry() {
@@ -97,8 +107,6 @@ public class ViewCountry {
             }
         }
     }
-
-
 
     void sortCountries() {
         //list sort
