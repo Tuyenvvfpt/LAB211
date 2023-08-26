@@ -63,7 +63,7 @@ public class ManageEastAsiaCountry {
     public List<EastAsiaCountry> findCountryByName(String name) {
         name = name.toUpperCase();
         List<EastAsiaCountry> listFound = new ArrayList<>();
-        for (EastAsiaCountry eastAsiaCountry : listFound) {
+        for (EastAsiaCountry eastAsiaCountry : listCountry) {
             if (eastAsiaCountry.getName().toUpperCase().contains(name)) {
                 listFound.add(eastAsiaCountry);
             }

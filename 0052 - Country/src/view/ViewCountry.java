@@ -73,17 +73,17 @@ public class ViewCountry {
         List<EastAsiaCountry> list = bo.getListCountry();
         //kiem tra xem collections co rong khong
         //rong => hien thi list empty
-        if (list.isEmpty()) {
-            System.out.println("List is empty");
-            return;
-        }
+//        if (list.isEmpty()) {
+//            System.out.println("List is empty");
+//            return;
+//        }
         //khong rong => hien thi quoc gia vua nhap
         //lay ve quoc gia nam o vi tri cuoi cung (quoc gia vua moi nhap)
         if (countryArray == null) {
             System.out.println("List is empty");
         } else {
             EastAsiaCountry country = countryArray[list.size() - 1];
-            System.out.format("%-15s %-15s %-15s %-15s\n", "Code", 
+            System.out.format("%-15s %-15s %-15s %-15s\n", "Code",
                     "Name", "Area", "Terrain");
             country.display();
         }
@@ -128,6 +128,7 @@ public class ViewCountry {
         }
         );
         //display
+        System.out.format("%-15s %-15s %-15s %-15s\n", "Code", "Name", "Area", "Terrain");
         for (EastAsiaCountry eastAsiaCountry
                 : bo.getListCountry()) {
             eastAsiaCountry.display();
