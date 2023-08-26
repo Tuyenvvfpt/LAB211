@@ -155,48 +155,75 @@ public class Main {
     }
 
     private void choiceAdditionMatrix() {
-        System.out.println("--Addtion--");
-        System.out.println("Enter row matrix 1: ");
-        int row1 = inputPositiveNumber();
-        System.out.println("Enter col matrix 1: ");
-        int col1 = inputPositiveNumber();
-        int matrix1[][] = inputMatrix("Matrix1", row1, col1);
+        while (true) {
+            System.out.println("--Addtion--");
+            System.out.println("Enter row matrix 1: ");
+            int row1 = inputPositiveNumber();
+            System.out.println("Enter col matrix 1: ");
+            int col1 = inputPositiveNumber();
+            int matrix1[][] = inputMatrix("Matrix1", row1, col1);
 
-        System.out.println("");
-        System.out.println("Enter row matrix 2: ");
-        int row2 = inputPositiveNumber();
-        System.out.println("Enter col matrix 2: ");
-        int col2 = inputPositiveNumber();
-        int matrix2[][] = inputMatrix("Matrix2", row2, col2);
+            System.out.println("");
+            System.out.println("Enter row matrix 2: ");
+            int row2 = inputPositiveNumber();
+            System.out.println("Enter col matrix 2: ");
+            int col2 = inputPositiveNumber();
+            int matrix2[][] = inputMatrix("Matrix2", row2, col2);
 
-        System.out.println("----Result----");
+            System.out.println("----Result----");
 
-        //neu cong, check 2 matrix co cung kich thuoc
-        if (checkRowColMatrix(row1, row2)
-                && checkRowColMatrix(col1, col2)) {
+            //neu cong, check 2 matrix co cung kich thuoc
+//        if (checkRowColMatrix(row1, row2)
+//                && checkRowColMatrix(col1, col2)) {
+//
+            int matrix[][] = additionMatrix(matrix1, matrix2);
             displayMatrix(matrix1);
             System.out.println(" + ");
             displayMatrix(matrix2);
-            System.out.println(" = ");
+            if (matrix != null) {
+                System.out.println(" = ");
+                displayMatrix(matrix);
+                break;
+            } else {//S
+                System.out.println("Cant add 2 matrix");//
+            }//
 
-            int matrix[][] = additionMatrix(matrix1, matrix2);
-            displayMatrix(matrix);
-        } else {
-            System.out.println("matrix 1 dont add matrix 2");
+//        } else {
+//            System.out.println("matrix 1 dont add matrix 2");
+//        }
         }
     }
 
+//    private int[][] additionMatrix(int[][] matrix1, int[][] matrix2) {
+//        int row1 = matrix1.length;
+//        int col1 = matrix1[1].length;
+//
+//        int matrix[][] = new int[row1][col1];
+//        for (int i = 0; i < row1; i++) {
+//            for (int j = 0; j < col1; j++) {
+//                matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+//            }
+//        }
+//        return matrix;
+//    }
     private int[][] additionMatrix(int[][] matrix1, int[][] matrix2) {
         int row1 = matrix1.length;
         int col1 = matrix1[1].length;
+        int row2 = matrix2.length;
+        int col2 = matrix2[1].length;
 
-        int matrix[][] = new int[row1][col1];
-        for (int i = 0; i < row1; i++) {
-            for (int j = 0; j < col1; j++) {
-                matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+        if (checkRowColMatrix(row1, row2) && checkRowColMatrix(col1, col2)) {
+            int matrix[][] = new int[row1][col1];
+            for (int i = 1; i <= row1; i++) {
+                for (int j = 1; j <= col1; j++) {
+                    matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+                }
             }
+            return matrix;
+        } else {
+            System.out.println("Matrix dimensions are not compatible for addition.");
+            return null; // or throw an exception
         }
-        return matrix;
     }
 
     private void choiceSubtractionMatrix() {

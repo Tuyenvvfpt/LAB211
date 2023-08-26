@@ -47,7 +47,6 @@ public class BirnarySearch {
      */
     void displayArray() {
         if (array.length > 0) {
-            System.out.print("Sorted array: [");
             for (int i = 0; i < array.length - 1; i++) {
                 System.out.print(array[i] + ", ");
             }
@@ -73,12 +72,16 @@ public class BirnarySearch {
     private int findByBinarySearch(int searchNumber) {
         int left = 0;
         int right = array.length - 1;
-        int mid = left + (right - left) / 2;
+        boolean isIncreasing = array[left] < array[right];
+
         while (left <= right) {
+            int mid = left + (right - left) / 2;
+
             if (array[mid] == searchNumber) {
                 //if searchNumber is found at position mid, return mid
                 return mid;
-            } else if (array[mid] < searchNumber) {
+                //            } else if (array[mid] < searchNumber) {
+            } else if ((isIncreasing && array[mid] < searchNumber) || (!isIncreasing && array[mid] > searchNumber)) {
                 //if the value at mid position is less than searchNumber, we continue to search to the right of mid
                 left = mid + 1;
             } else {

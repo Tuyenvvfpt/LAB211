@@ -17,11 +17,13 @@ public class Main {
 
         //generate random integer in number range for each array element
         birnarySearch.generateRandomInteger();
+        System.out.print("       Array: [");
         birnarySearch.displayArray();
 
         //sort array
         birnarySearch.sortArray();
         //display the array
+        System.out.print("Sorted array: [");
         birnarySearch.displayArray();
         //display the index of search number in array
         birnarySearch.displayIndexOfSearchNumber(searchNumber);
